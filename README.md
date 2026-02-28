@@ -100,6 +100,16 @@ Persönliche Lernnotizen befinden sich im Verzeichnis `nachdenkzettel/`.
 
 ---
 
+## KI-Nutzung 
+Im Rahmen dieses Projekts wurden generative KI-Tools für folgende unterstützende Aufgaben eingesetzt:
+- Übersetzung von Code-Kommentaren und Dokumentation ins Deutsche
+- Vorschläge zur Fehlerbehebung während der Entwicklung
+
+Alle generierten Inhalte wurden von uns geprüft, angepasst und in den Projektkontext integriert. Der finale Code und die fachliche Umsetzung sind unsere eigene Arbeit.
+
+
+---
+
 ## Hinweis
 Dieses Projekt wird ausschließlich für akademische Zwecke entwickelt.
 
