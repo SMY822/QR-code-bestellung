@@ -5,7 +5,6 @@ D:\IdeaProjects\QR-code-bestellung\src\main\java\com\restaurant\desktop\entity\O
 D:\IdeaProjects\QR-code-bestellung\src\main\java\com\restaurant\desktop\exception\NoQRScannedException.java
 D:\IdeaProjects\QR-code-bestellung\src\main\java\com\restaurant\desktop\MainApp.java
 D:\IdeaProjects\QR-code-bestellung\src\main\java\com\restaurant\desktop\service\LanguageManager.java
-D:\IdeaProjects\QR-code-bestellung\src\main\java\com\restaurant\desktop\service\OrderManager.java
 D:\IdeaProjects\QR-code-bestellung\src\main\java\com\restaurant\desktop\service\QRCodeGenerator.java
 D:\IdeaProjects\QR-code-bestellung\src\main\java\com\restaurant\desktop\service\RatingManager.java
 D:\IdeaProjects\QR-code-bestellung\src\main\java\com\restaurant\desktop\ui\EntrancePanel.java
