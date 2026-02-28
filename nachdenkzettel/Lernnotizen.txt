@@ -1,0 +1,89 @@
+Lernnotizen – Software-Entwicklung 2
+
+Hier sind unsere Notizen zum SE2-Projekt. Wir haben ja dieses Restaurant-Bestellsystem mit QR-Codes gemacht. Vielleicht hilft es beim Verständnis, wie wir die Konzepte aus der Vorlesung angewendet haben.
+
+1. Git – Das ewige Hin und Her
+Am Anfang war Git für mich echt gewöhnungsbedürftig. Klar, die Grundidee: Versionskontrolle, Repository, Commits, Branches, Merges, Remote wie GitHub… Aber in der Praxis? Wir haben unser Projekt von Anfang an auf GitHub gehostet. Am Anfang hatten wir ständig Merge-Konflikte, weil wir beide an der gleichen Datei gearbeitet haben – vor allem an der `MainFrame.java`. Mit der Zeit haben wir gelernt, lieber öfter zu pushen und vorher `git pull` zu machen.  
+Die `.gitignore` war auch praktisch, damit nicht ständig die IDE-Ordner (`.idea/`, `target/`) im Repository landen.  
+Die Commit-Nachrichten habe ich versucht, sinnvoll zu formulieren, damit man später noch weiß, was passiert ist. Klappt nicht immer, aber besser als nichts.
+
+2. UML – Erst zeichnen, dann programmieren
+Ehrlich gesagt, fand ich UML am Anfang total übertrieben. Aber als wir dann das Klassendiagramm für unser Projekt gezeichnet haben (das Bild liegt im `docs/`-Ordner), wurde mir klar, wie praktisch das ist. Man sieht auf einen Blick, welche Klassen es gibt (`EntrancePanel`, `MenuPanel`, `Order`, `FoodItem`, `Navigator` …) und wie sie zusammenhängen.  
+Der `Navigator` ist so eine Art Weichensteller – der bestimmt, welches Panel gerade im Fenster angezeigt wird. Ohne das Diagramm hätten wir wahrscheinlich eine riesige Chaos-Klasse gebaut.
+
+3. Objekte und Klassen – Das Herzstück
+Also, ohne Objekte geht ja nix. Wir haben ein paar Entitätsklassen: `FoodItem` (das Gericht), `Order` (die Bestellung) und `OrderItem` (ein einzelnes Gericht in der Bestellung).  
+Die Attribute sind fast alle `private`, Zugriff gibt’s über Getter – so wie man’s lernt.  
+Vererbung? Naja, unsere Panels erben alle von `JPanel`, das ist ja auch Vererbung. Aber ansonsten haben wir keine extra Vererbung eingebaut.  
+Polymorphismus: Der `Navigator` behandelt alle Panels gleich, egal ob `EntrancePanel` oder `PaymentPanel` – die Methode `showXxx()` macht das möglich.  
+Enums sind praktisch: `Category` für die Speisekategorien (Vorspeise, Hauptgericht …) mit Namen auf Deutsch, Englisch und Chinesisch.  
+Statische Methoden gibts im `LanguageManager` und `QRCodeGenerator` – die rufen wir einfach auf, ohne ein Objekt zu erzeugen.
+
+4. Abstrakte Klassen und Interfaces – Haben wir das gebraucht?
+Ehrlich gesagt haben wir keine eigenen abstrakten Klassen geschrieben. Aber wir haben trotzdem mit dem Konzept gearbeitet, z.B. über das Interface `Runnable` (wenn man mal `SwingWorker` nutzen würde) oder über `Consumer<String>` im `EntrancePanel`.  
+Das war ein typischer Callback: Wenn der Scan erfolgreich war, wird die Tischnummer an den `Navigator` übergeben. Fand ich am Anfang komisch, aber jetzt check ich’s.  
+SOLID? Naja, wir haben versucht, die Klassen klein zu halten (Single Responsibility), z.B. macht der `QRCodeGenerator` wirklich nur QR-Codes. Liskov: Unsere Panels können überall dort eingesetzt werden, wo ein `JPanel` erwartet wird – check.  
+Aber bei der Dependency Inversion hapert’s: Der `Navigator` hängt direkt an den konkreten Panels, das ist eher fest gekoppelt. Hätte man besser machen können, aber für die Größe des Projekts wars okay.
+
+5. Collections und Generics – Listen, Maps und so
+In `MenuPanel` haben wir `List<FoodItem>` für die Speisekarte. Die Kategorien gruppieren wir mit `Map<Category, List<FoodItem>>`. Das ist praktisch, um schnell alle Gerichte einer Kategorie zu finden.  
+`ButtonGroup` für die RadioButtons in der Zahlungsauswahl – das nutzt intern auch Listen.  
+`Collections.sort()` haben wir nicht gebraucht, aber die Idee ist klar.  
+Generics sind überall: `ArrayList<OrderItem>` in `Order`, `Map<String, String>` für die mehrsprachigen Namen der Gerichte. Ohne Generics wär’s ständiges Casten gewesen – also lieber mit.
+
+6. Exceptions und Error Handling – Wenn’s mal knallt
+Am Anfang hab ich immer vergessen, Exceptions zu behandeln. Dann habe ich mir selbst überlegt:„Und was ist, wenn der Nutzer keine Zahlungsmethode auswählt?“ Zack, `NoQRScannedException` haben wir selbst geschrieben (checked exception). Die fliegt, wenn jemand ohne Scan auf „Enter“ drückt. Im `EntrancePanel` fangen wir die ab und zeigen eine Meldung.  
+Auch bei der Mengeneingabe: Wenn der Nutzer keinen Zahl eingibt, kommt `NumberFormatException` – fangen wir und setzen einfach 1.  
+Beim Dateischreiben (`RatingManager`) könnte `IOException` kommen, das ist auch abgefangen.  
+Assertions? Nicht genutzt, weil die in Produktion oft aus sind – bringt also nix.
+
+7. Clean Code – Sauber bleiben
+Wir haben versucht, halbwegs sauberen Code zu schreiben. Namen wie `generateQRCode()`, `updateOrderDisplay()` sprechen für sich.  
+Keine magischen Zahlen: `MAX_REFRESH` als Konstante.  
+Kommentare? Nur wo nötig, z.B. als Javadoc für öffentliche Methoden.  
+Manche Methoden sind noch zu lang, vor allem `initUI()` – aber die haben wir immerhin in Hilfsmethoden wie `createCategoryPanel()` zerlegt.  
+Guard Clauses: Am Anfang einer Methode prüfen, ob Vorbedingungen erfüllt sind (z.B. `if (order == null) return;`). Find ich gut.
+
+8. Testing und Logging – Müssen wir noch ausbauen
+Wir haben einen JUnit-Test für die `Order`-Klasse geschrieben (im `OrderTest`), der prüft, ob der Gesamtbetrag richtig berechnet wird.  
+Mehr Tests wären besser, aber für die Abgabe reicht’s hoffentlich.  
+Logging: Aktuell nur `System.out` – das ist eigentlich nicht professionell. Später könnte man Log4j2 einbauen, aber wir haben die Zeit nicht mehr geschafft.  
+Naja, im professionellen Umfeld sollte man das auf jeden Fall machen.
+
+9. Threads – Nur ganz basic
+Swing läuft im Event-Dispatch-Thread (EDT), deswegen starten wir alles mit `SwingUtilities.invokeLater()`.  
+Eigene Threads? Nicht wirklich. In `ProcessingPanel` könnte man `SwingWorker` nutzen, um das Kochen zu simulieren, aber wir haben nur einen einfachen Button.  
+Thread-Sicherheit ist hier kein Thema, weil nur der EDT auf die GUI zugreift.
+
+10. Streams – Cool, aber nicht übertrieben
+Die Stream-API haben wir vor allem in `Order.getTotalAmount()` verwendet:
+
+return items.stream()
+            .map(OrderItem::getSubtotal)
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+Das ist kurz und verständlich.  
+`Optional` haben wir nicht genutzt, wäre aber z.B. bei `findFirst()` in der Suchfunktion sinnvoll gewesen.  
+In `RatingManager.loadAllRatings()` haben wir klassisch mit `BufferedReader` gearbeitet – mit Streams ginge es auch, aber wir wollten es einfach halten.
+
+11. GUIs – Swing statt JavaFX
+Ja, wir haben Swing verwendet, weil es in der Vorlesung noch drankam. JavaFX wäre moderner, aber für unsere Zwecke reicht Swing.  
+Der Aufbau ist grob MVC-artig:  
+- Model: `Order`, `FoodItem` etc.  
+- View: die `JPanel`-Klassen  
+- Controller: der `Navigator` und die `ActionListener` in den Panels  
+Layouts: `BorderLayout`, `GridLayout`, `FlowLayout`, `JSplitPane` – hat alles funktioniert.  
+Events: Klick auf Buttons, Auswahl von RadioButtons – alles über `ActionListener`.
+
+12. Software-Architektur – Ein bisschen Struktur
+Wir haben eine einfache Schichtenarchitektur:  
+- UI-Paket: Panels und `Navigator`  
+- Service-Paket: `LanguageManager`, `QRCodeGenerator`  
+- Entity-Paket: `Order`, `FoodItem` etc.  
+- Exception-Paket: `NoQRScannedException`  
+Design Patterns?  
+- `LanguageManager` ist quasi ein Singleton (alles static).  
+- `QRCodeGenerator` ist eine einfache Factory (statische Methode erzeugt QR-Codes).  
+- Observer? Nicht direkt, aber `ActionListener` sind eine Art Observer.  
+- Adapter brauchten wir keinen.  
+Die Kopplung ist nicht optimal: Der `Navigator` hängt direkt an den Panels, also eher fest. Aber für ein kleines Projekt geht’s klar.

@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * Eingangs-Panel, zeigt QR-Code und Eintritts-Button.
+ */
 public class EntrancePanel extends JPanel {
     private Navigator navigator;
     private JLabel qrLabel;
@@ -17,6 +20,10 @@ public class EntrancePanel extends JPanel {
     private int refreshCount = 0;
     private final int MAX_REFRESH = 5;
 
+    /**
+     * Konstruktor für das Eingangs-Panel, initialisiert UI-Komponenten.
+     * @param navigator Navigator-Instanz
+     */
     public EntrancePanel(Navigator navigator) {
         this.navigator = navigator;
         initUI();
@@ -54,6 +61,9 @@ public class EntrancePanel extends JPanel {
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Wechselt die Sprache und aktualisiert die Textinhalte der Oberfläche.
+     */
     private void switchLanguage() {
         String[] options = {"中文", "English", "Deutsch"};
         int choice = JOptionPane.showOptionDialog(this,
@@ -69,18 +79,17 @@ public class EntrancePanel extends JPanel {
         else if (choice == 2) LanguageManager.setLanguage("de");
         else return;
 
-        // 更新当前面板文字
         promptLabel.setText(LanguageManager.get("scan.prompt"));
         refreshBtn.setText(LanguageManager.get("refresh.qr"));
         nextBtn.setText(LanguageManager.get("next.step"));
         langBtn.setText(LanguageManager.get("language"));
 
-        // 更新窗口标题
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         if (topFrame != null) {
             topFrame.setTitle(LanguageManager.get("app.title"));
         }
     }
+
     private void generateQRCode() {
         try {
             String content = "http://restaurant.com/order?table=" + (refreshCount + 1);

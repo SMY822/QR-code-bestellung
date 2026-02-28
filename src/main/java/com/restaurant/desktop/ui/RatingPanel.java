@@ -5,16 +5,26 @@ import com.restaurant.desktop.service.RatingManager;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Bewertungs-Panel, in dem Benutzer Speisen und Service bewerten und einen Kommentar hinterlassen können.
+ */
 public class RatingPanel extends JPanel {
     private Navigator navigator;
     private JSlider foodSlider, serviceSlider;
     private JTextArea commentArea;
 
+    /**
+     * Konstruktor für das Bewertungs-Panel.
+     * @param navigator Navigator-Instanz
+     */
     public RatingPanel(Navigator navigator) {
         this.navigator = navigator;
         initUI();
     }
 
+    /**
+     * Initialisiert die Benutzeroberfläche.
+     */
     private void initUI() {
         setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -25,7 +35,7 @@ public class RatingPanel extends JPanel {
 
         JPanel centerPanel = new JPanel(new GridLayout(3, 1, 10, 10));
 
-        // 菜品评分
+        // Bewertung der Speisen
         JPanel foodPanel = new JPanel(new BorderLayout());
         foodPanel.add(new JLabel(LanguageManager.get("rate.food")), BorderLayout.NORTH);
         foodSlider = new JSlider(1, 5, 5);
@@ -34,7 +44,7 @@ public class RatingPanel extends JPanel {
         foodSlider.setPaintLabels(true);
         foodPanel.add(foodSlider, BorderLayout.CENTER);
 
-        // 服务评分
+        // Bewertung des Services
         JPanel servicePanel = new JPanel(new BorderLayout());
         servicePanel.add(new JLabel(LanguageManager.get("rate.service")), BorderLayout.NORTH);
         serviceSlider = new JSlider(1, 5, 5);
@@ -43,7 +53,7 @@ public class RatingPanel extends JPanel {
         serviceSlider.setPaintLabels(true);
         servicePanel.add(serviceSlider, BorderLayout.CENTER);
 
-        // 评论
+        // Kommentar
         JPanel commentPanel = new JPanel(new BorderLayout());
         commentPanel.add(new JLabel(LanguageManager.get("comment")), BorderLayout.NORTH);
         commentArea = new JTextArea(4, 30);

@@ -4,10 +4,13 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Repräsentiert eine Bestellung mit Tischnummer und Liste der Bestellpositionen.
+ */
 public class Order {
     private String tableNumber;
     private List<OrderItem> items;
-    private String paymentMethod; // 支付方式
+    private String paymentMethod; // Zahlungsmethode
     private boolean paid;
 
     public Order(String tableNumber) {
@@ -21,8 +24,11 @@ public class Order {
     public String getPaymentMethod() { return paymentMethod; }
     public boolean isPaid() { return paid; }
 
+    /**
+     * Fügt eine Bestellposition zur Bestellung hinzu.
+     * @param item die hinzuzufügende Bestellposition
+     */
     public void addItem(OrderItem item) {
-        // 如果已存在相同菜品，合并数量（此处简化，直接添加）
         items.add(item);
     }
 
@@ -34,6 +40,10 @@ public class Order {
         this.paid = paid;
     }
 
+    /**
+     * Berechnet den Gesamtbetrag der Bestellung (unter Verwendung der Stream API).
+     * @return Gesamtbetrag
+     */
     public BigDecimal getTotalAmount() {
         return items.stream()
                 .map(OrderItem::getSubtotal)

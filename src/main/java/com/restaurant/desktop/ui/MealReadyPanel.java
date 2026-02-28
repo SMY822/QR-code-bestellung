@@ -4,14 +4,24 @@ import com.restaurant.desktop.service.LanguageManager;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel, das anzeigt, dass alle Gerichte serviert sind.
+ */
 public class MealReadyPanel extends JPanel {
     private Navigator navigator;
 
+    /**
+     * Konstruktor für das MealReady-Panel.
+     * @param navigator Navigator-Instanz
+     */
     public MealReadyPanel(Navigator navigator) {
         this.navigator = navigator;
         initUI();
     }
 
+    /**
+     * Initialisiert die Benutzeroberfläche.
+     */
     private void initUI() {
         setLayout(new BorderLayout());
 

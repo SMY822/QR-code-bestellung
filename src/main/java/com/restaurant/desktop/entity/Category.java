@@ -1,5 +1,8 @@
 package com.restaurant.desktop.entity;
 
+/**
+ * Enum für Gerichtskategorien mit mehrsprachigen Anzeigenamen.
+ */
 public enum Category {
     APPETIZER("前菜", "Appetizer", "Vorspeise"),
     MAIN("主食", "Main Dish", "Hauptgericht"),
@@ -16,6 +19,11 @@ public enum Category {
         this.de = de;
     }
 
+    /**
+     * Gibt den Anzeigenamen der Kategorie basierend auf der Sprache zurück.
+     * @param lang Sprachcode (z.B. "zh", "en", "de")
+     * @return Kategoriename in der entsprechenden Sprache
+     */
     public String getDisplayName(String lang) {
         switch (lang) {
             case "en": return en;

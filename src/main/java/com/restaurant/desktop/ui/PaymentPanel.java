@@ -6,6 +6,9 @@ import com.restaurant.desktop.service.LanguageManager;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Zahlungs-Panel, zeigt Bestelldetails und Auswahl der Zahlungsmethode.
+ */
 public class PaymentPanel extends JPanel {
     private Navigator navigator;
     private Order order;
@@ -13,6 +16,11 @@ public class PaymentPanel extends JPanel {
     private JRadioButton mobileBtn, cashBtn, cardBtn;
     private JTextArea orderArea;
 
+    /**
+     * Konstruktor für das Zahlungs-Panel.
+     * @param navigator Navigator-Instanz
+     * @param order aktuelle Bestellung
+     */
     public PaymentPanel(Navigator navigator, Order order) {
         this.navigator = navigator;
         this.order = order;
@@ -88,6 +96,9 @@ public class PaymentPanel extends JPanel {
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Aktualisiert die Anzeige der Bestelldetails.
+     */
     private void updateOrderDisplay() {
         StringBuilder sb = new StringBuilder();
         sb.append(LanguageManager.get("order.details")).append("\n");
@@ -95,11 +106,9 @@ public class PaymentPanel extends JPanel {
         for (OrderItem oi : order.getItems()) {
             sb.append(oi.getFoodItem().getName(LanguageManager.getCurrentLang()))
                     .append(" × ").append(oi.getQuantity())
-                    // 修改点：使用 formatPrice 显示小计
                     .append(" = ").append(LanguageManager.formatPrice(oi.getSubtotal())).append("\n");
         }
         sb.append("====================\n");
-        // 修改点：使用 formatPrice 显示总计
         sb.append(LanguageManager.get("total")).append(": ").append(LanguageManager.formatPrice(order.getTotalAmount()));
         orderArea.setText(sb.toString());
     }

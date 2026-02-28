@@ -4,9 +4,16 @@ import com.restaurant.desktop.service.LanguageManager;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel "In Zubereitung", zeigt Meldung "Bestellung erfolgreich, wird zubereitet".
+ */
 public class ProcessingPanel extends JPanel {
     private Navigator navigator;
 
+    /**
+     * Konstruktor für das "In Zubereitung"-Panel.
+     * @param navigator Navigator-Instanz
+     */
     public ProcessingPanel(Navigator navigator) {
         this.navigator = navigator;
         initUI();

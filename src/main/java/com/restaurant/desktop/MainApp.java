@@ -5,7 +5,15 @@ import com.restaurant.desktop.service.LanguageManager;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Haupt-Einstiegsklasse der Anwendung.
+ */
 public class MainApp {
+
+    /**
+     * Einstiegsmethode des Programms, startet die Swing-Anwendung.
+     * @param args Kommandozeilenargumente
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
@@ -19,12 +27,12 @@ public class MainApp {
             frame.setSize(800, 600);
             frame.setLocationRelativeTo(null);
 
-            // 设置窗口图标（如果图片存在）
+            // Setzt das Fenster-Icon (falls vorhanden)
             try {
                 ImageIcon icon = new ImageIcon(MainApp.class.getResource("/images/icon.png"));
                 frame.setIconImage(icon.getImage());
             } catch (Exception e) {
-                System.err.println("图标加载失败: " + e.getMessage());
+                System.err.println("Fehler beim Laden des Icons: " + e.getMessage());
             }
 
             Navigator navigator = new Navigator(frame);

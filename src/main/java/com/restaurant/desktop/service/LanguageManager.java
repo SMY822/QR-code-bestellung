@@ -4,6 +4,9 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+/**
+ * Verwaltet die Sprachressourcendateien und bietet Internationalisierung.
+ */
 public class LanguageManager {
     private static ResourceBundle bundle;
     private static String currentLang = "zh";
@@ -12,6 +15,10 @@ public class LanguageManager {
         setLanguage("de");
     }
 
+    /**
+     * Setzt die aktuelle Sprache und lädt das ResourceBundle neu.
+     * @param lang Sprachcode ("zh", "en", "de")
+     */
     public static void setLanguage(String lang) {
         currentLang = lang;
         try {
@@ -22,6 +29,11 @@ public class LanguageManager {
         }
     }
 
+    /**
+     * Holt den Text für einen Schlüssel in der aktuellen Sprache.
+     * @param key Ressourcenschlüssel
+     * @return übersetzter Text
+     */
     public static String get(String key) {
         try {
             return bundle.getString(key);
@@ -34,6 +46,11 @@ public class LanguageManager {
         return currentLang;
     }
 
+    /**
+     * Formatiert den Preis mit dem entsprechenden Währungssymbol der aktuellen Sprache.
+     * @param price Preis
+     * @return Preisstring mit Währungssymbol
+     */
     public static String formatPrice(java.math.BigDecimal price) {
         switch (currentLang) {
             case "en": return "$" + price.toString();

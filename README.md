@@ -73,7 +73,7 @@ Oder öffnen Sie das Projekt in IntelliJ IDEA und starten Sie `MainApp.java`.
 ---
 
 ## Verwendete SE2-Konzepte
-- **Objekte und Klassen**: Alle Entitäts- und UI-Klassen.
+- **Objekte und Klassen**: Alle Entität- und UI-Klassen.
 - **Collections und Generics**: `List<FoodItem>`, `Map<Category, List<FoodItem>>`, `ButtonGroup`.
 - **Exceptions**: Eigene `NoQRScannedException`, try-catch für QR-Generierung und Eingabevalidierung.
 - **GUI (Swing)**: Vollständige Oberfläche mit mehreren Panels und Navigation.

@@ -7,7 +7,19 @@ import com.google.zxing.common.BitMatrix;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
+/**
+ * Utility-Klasse zur Generierung von QR-Code-Bildern.
+ */
 public class QRCodeGenerator {
+
+    /**
+     * Generiert ein QR-Code-Bild mit dem angegebenen Inhalt.
+     * @param content QR-Code-Inhalt
+     * @param width Breite
+     * @param height Höhe
+     * @return generiertes QR-Code-Bild
+     * @throws Exception wirft Exception bei Fehlschlag
+     */
     public static BufferedImage generateQRCode(String content, int width, int height) throws Exception {
         HashMap<EncodeHintType, String> hints = new HashMap<>();
         hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
